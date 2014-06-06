@@ -1,8 +1,7 @@
 require 'json'
 require 'neography'
 
-#DB_URL = 'http://localhost:7474/db/data/'
-DB_URL = 'http://sg2014_1:s1YKo1Xbm62wn9uIcrR6@sg20141.sb02.stations.graphenedb.com:24789'
+DB_URL = ENV['GRAPH_DB_URL'] || 'http://localhost:7474/db/data/'
 
 @neo = Neography::Rest.new( DB_URL )
 
