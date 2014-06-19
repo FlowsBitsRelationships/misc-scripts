@@ -6,7 +6,7 @@ var template_constructor = function(trace_json){
      var y = (trace_json.lon-114.15)*1000;
      
     console.log("x: "+x+",y: "+y);
-    geometry = new THREE.CubeGeometry(8, 8, 8);
+    geometry = new THREE.CubeGeometry(3, 3, 3);
     material = new THREE.MeshBasicMaterial({
             color : 0x00ff00,
             wireframe: true

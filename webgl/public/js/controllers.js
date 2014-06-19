@@ -1,3 +1,25 @@
+// Class for making calls to Neo4j/Postgres
+function db_controller() {
+    var self = this;
+
+	var __construct = function (that) {
+        // console.log("db_controller.__construct");
+    }(this);
+    
+    // Sends a cypher query to the application
+    self.cypher_neo4j = function (query_msg, ext_callback) {
+        var response = $.post("/cypher", { query: query_msg }).done(function(data){
+            cypher_neo4j_callback(data, ext_callback);
+        });
+	};
+    
+    // Callback for when cypher query returns results, executes external callback with results
+    var cypher_neo4j_callback = function (data, ext_callback) {
+        var json = JSON.parse(data)
+        ext_callback(json);
+    };
+}
+
 // Class for managing ThreeJS methods and interaction with scene
 function scene_controller() {
 
@@ -131,9 +153,7 @@ function scene_controller() {
     
     self.display_tooltip = function(text, location){
         tooltip = document.createElement('div');
-        tooltip.style.position = 'absolute';
-        //text2.style.zIndex = 1;    // if you still don't see the label, try uncommenting this
-        tooltip.style.color = "white";
+        tooltip.className = 'tooltip';
         tooltip.innerHTML = text;
         tooltip.style.top = location.y + 'px';
         tooltip.style.left = location.x + 'px';
@@ -246,28 +266,4 @@ function scene_controller() {
         return vector;
     }
     
-}
- 
- 
- 
-// Class for making calls to Neo4j/Postgres
-function db_controller() {
-    var self = this;
-
-	var __construct = function (that) {
-        // console.log("db_controller.__construct");
-    }(this);
-    
-    // Sends a cypher query to the application
-    self.cypher_neo4j = function (query_msg, ext_callback) {
-        var response = $.post("/cypher", { query: query_msg }).done(function(data){
-            cypher_neo4j_callback(data, ext_callback);
-        });
-	};
-    
-    // Callback for when cypher query returns results, executes external callback with results
-    var cypher_neo4j_callback = function (data, ext_callback) {
-        var json = JSON.parse(data)
-        ext_callback(json);
-    };
 }

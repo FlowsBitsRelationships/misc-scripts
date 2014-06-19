@@ -14,7 +14,7 @@ end
 
 post '/cypher' do
     response.headers['Access-Control-Allow-Origin'] = '*'
-    uri = URI( "http://sg2014_1:s1YKo1Xbm62wn9uIcrR6@sg20141.sb02.stations.graphenedb.com:24789/db/data/cypher" )
+    uri = URI( "http://#{ENV['DB_USERNAME']}:#{ENV['DB_PASSWORD']}@sg20141.sb02.stations.graphenedb.com:24789/db/data/cypher" )
     
     req = Net::HTTP::Post.new(uri, initheader = {'Content-Type' =>'application/json'})
     req.basic_auth 'sg2014_1', 's1YKo1Xbm62wn9uIcrR6'
