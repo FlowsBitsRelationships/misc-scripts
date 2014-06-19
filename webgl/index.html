@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<title>threeJS Neo4J visualization</title>
+		<style>canvas { width: 100%; height: 100% }</style>
+	</head>
+	<body>
+        <input id = "query" style = "width:800;" value = "start n = node:tweets_1('withinDistance:[22.280893, 114.173035,5.0]') return n.id, n.username, n.text, n.lon, n.lat">  </input><button id = "query">QUERY</button>
+        <script src="./js/jquery.js"></script>
+		<script src="./js/three.min.js"></script>
+        <script src="./js/controllers.js"></script>
+        <script>
+        
+            var sc = new scene_controller();
+            var dbc = new db_controller();
+            
+             sc.set_frame("spatial");
+             
+            	$("button#query").unbind("click");
+                $("button#query").click(function () {
+                    var query = $("#query").val();
+                     sc.set_tracing_template("tweet_node");
+                    
+                    sc.clear_scene();
+                    
+                    dbc.cypher_neo4j(query, function(json){
+                        sc.add_tracing(json);
+                    });
+                });
+        </script>
+	</body>
+</html>
