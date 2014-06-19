@@ -33,7 +33,7 @@ function scene_controller() {
 
 		scene.add(cube);
 
-		camera.position.z = 5;
+		camera.position.z = 100;
 
 	}(this);
     
@@ -42,12 +42,13 @@ function scene_controller() {
 		console.log("clear_scene();");
 	};
     
+
     // Render the scene
 	self.render = function () {
 		requestAnimationFrame(self.render);
 
-		cube.rotation.x += 0.01;
-		cube.rotation.y += 0.01;
+		// cube.rotation.x += 0.01;
+		// cube.rotation.y += 0.01;
 
 		renderer.render(scene, camera);
 	};
@@ -94,7 +95,8 @@ function scene_controller() {
     // and allow new types of data to be easily added/removed
 	self.add_tracing = function (json) {
         json.data.forEach(function(trace_json){
-            trace = tracing_template(trace_json);
+            trace_properties = trace_json[0]["data"];
+            trace = tracing_template(trace_properties);
             console.log(trace);
             scene.add(trace);
         });
